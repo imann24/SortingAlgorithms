@@ -1,6 +1,6 @@
 package com.imann.sort;
 
-public class Sort<T> {
+public class Sort<T extends Comparable<T>> {
 
 	public Sort() {
 
