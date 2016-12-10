@@ -10,8 +10,9 @@ public class RunSort {
 
 	public static void main(String[] args) {
 		Integer[] nums = new Integer[]{10, 1, 3, 10, 10, 21, 1};
-		Sort<Integer> sorter = new SelectionSort<Integer>();
-		nums = sorter.run(nums);
+		Sort<Integer> selectionSort = new SelectionSort<Integer>();
+		Sort<Integer> insertionSort = new InsertionSort<Integer>();
+		nums = insertionSort.run(nums);
 		System.out.println(arrayToString(nums));
 	}
 	
