@@ -9,7 +9,7 @@ package com.imann.sort;
 public class RunSort {
 
 	public static void main(String[] args) {
-		Integer[] nums = new Integer[]{10, 1, 3, 10, 10, 21, 1};
+		Integer[] nums = new Integer[]{10, 1, 3, 5, 11, 0, 1000, 1, 32, 2, 1};
 		Sort<Integer> selectionSort = new SelectionSort<Integer>();
 		Sort<Integer> insertionSort = new InsertionSort<Integer>();
 		Sort<Integer> mergeSort = new MergeSort<Integer>();

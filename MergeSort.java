@@ -5,6 +5,8 @@
 
 package com.imann.sort;
 
+import java.util.ArrayList; 
+
 public class MergeSort<T extends Comparable<T>> extends Sort<T> {
 	@Override
 	public T[] run (T[] source) {
@@ -35,49 +37,34 @@ public class MergeSort<T extends Comparable<T>> extends Sort<T> {
 	
 	// We expect end1 and start2 to be adjacent based on the params of the algorithm
 	T[] mergeSubArrays (T[] source, int start1, int end1, int start2, int end2) {
-		//System.out.println(start1 + " " + " " + end1 + " " + start2 + " " + end2);
-		// System.out.println(RunSort.arrayToString(source));
+		// Can't declare an array because it can't store generics
+		ArrayList<T> buffer = new ArrayList<T>(end2 - start1);
 		int pointer1 = start1;
-		if (start1 == end1) {
-			pointer1++;
-		}
 		int pointer2 = start2;
-		if (start2 == end2) {
-			pointer2++;
-		}
-		// Sorting in place:
 		int head = Math.min(start1, start2);
 		int tail = Math.max(end1, end2);
-		while (head <= tail) {
+		int index = head;
+		while (index <= tail) {
 			boolean p1AtEnd = pointer1 > end1;
 			boolean p2AtEnd = pointer2 > end2;
-			boolean p1LessThanHead = false;
-			boolean p2LessThanHead = false;
-			if (!p1AtEnd) { 
-				p1LessThanHead = source[pointer1].compareTo(source[head]) < 0;
-			}
-			if (!p2AtEnd) {
-				p2LessThanHead = source[pointer2].compareTo(source[head]) < 0;
-			}
-			if (p1AtEnd && p2LessThanHead) {
-				swap(source, head, pointer2);
-				pointer2++;
-			} else if (p2AtEnd && p1LessThanHead) {
-				swap(source, head, pointer1);
-				pointer1++;
-			} else if (p1LessThanHead || p2LessThanHead){
-				if (source[pointer1].compareTo(source[pointer2]) < 0 && p1LessThanHead) {
-					swap(source, head, pointer1);
-					pointer1++;
-				} else if (p2LessThanHead) {
-					swap(source, head, pointer2);
-					pointer2++;
+			if (p1AtEnd) {
+				buffer.add(source[pointer2++]);
+			} else if (p2AtEnd) {
+				buffer.add(source[pointer1++]);
+			} else {
+				if (source[pointer2].compareTo(source[pointer1]) < 1) {
+					buffer.add(source[pointer2++]);
+				} else {
+					buffer.add(source[pointer1++]);
 				}
 			}
 			// Always step forward 1
-			head++;
+			index++;
 		}
-		// System.out.println(RunSort.arrayToString(source));
+		index = head;
+		while (!buffer.isEmpty()) {
+			source[index++] = buffer.remove(0);
+		}
 		return source;
 	}
 }
